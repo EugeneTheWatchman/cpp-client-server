@@ -20,7 +20,24 @@ int main(void)
         auto a = req.get_param_value("a");
         auto b = req.get_param_value("b");
 
-        logger("/sum get request accepted with params: " + a + ", " + b);
+        logger("/sum GET request accepted with params: " + a + ", " + b);
+
+        if (!(isNumber(a) && isNumber(b))) {
+            res.set_content("a and b should be a numbers", "text/plain");
+            return 0;
+        }
+
+        double firstNumber = std::atof(a.c_str());
+        double secondNumber = std::atof(b.c_str());
+
+        res.set_content(std::to_string(firstNumber + secondNumber), "text/plain");
+        });
+
+    svr.Post("/sum", [&](const Request& req, Response& res) {
+        auto a = req.get_param_value("a");
+        auto b = req.get_param_value("b");
+
+        logger("/sum POST request accepted with params: " + a + ", " + b);
 
         if (!(isNumber(a) && isNumber(b))) {
             res.set_content("a and b should be a numbers", "text/plain");
