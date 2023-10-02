@@ -11,7 +11,7 @@ int main()
     auto url = cpr::Url{ "http://localhost:1234/sum" };
     
     auto params = cpr::Parameters{ {"a", a },{"b", b}};
-    auto r = cpr::Get(url, params);
+    auto r = cpr::Post(url, params);
     if (r.status_code != 200) {
         std::cout << "request failed" << std::endl;
     }
